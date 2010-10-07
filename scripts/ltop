@@ -34,9 +34,9 @@
 # Notes:
 #======================================================================
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/share/lmt/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/share/lmt-gui
 
-LMT_JAR=/usr/share/lmt/lib/lmt-complete.jar
+LMT_JAR=/usr/share/lmt-gui/lmt-complete.jar
 
 getjava()
 {

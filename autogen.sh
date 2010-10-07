@@ -13,5 +13,5 @@ autoconf --force
 echo "Cleaning up ..."
 mv aclocal.m4 config/
 rm -rf autom4te.cache
-echo "Now run ./configure to configure lmt-client-clientss for your environment."
+echo "Now run ./configure to configure lmt-gui for your environment."
 
