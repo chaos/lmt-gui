@@ -5,16 +5,13 @@ Release:
 License: GPL
 Group: Applications/System
 Summary: Lustre Montitoring Tools Client
-URL: http://sourceforge.net/projects/lmt/
+URL: http://code.google.com/p/lmt
 Packager: Jim Garlick <garlick@llnl.gov>
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: ant, ant-nodeps
-%if 0%{?ch4}
-BuildRequires: java-1.5.0-ibm-devel, java-1.5.0-ibm
-%else
+BuildRequires: ncurses
 BuildRequires: jre >= 1.4.2, java-devel >= 1.4.2
-%endif
 Requires: jre >= 1.4.2
 Obsoletes: lmt-client < 3.0
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
@@ -49,5 +46,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog NEWS DISCLAIMER COPYING
 %{_bindir}/lwatch
 %dir %{lmtlibdir}
-%{lmtrc}/sample.lmtrc
+%{lmtlibdir}/sample.lmtrc
 %attr(0644,root,root) %{lmtlibdir}/lmt-complete.jar
