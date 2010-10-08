@@ -54,7 +54,7 @@ if (defined $ENV{JAVA_HOME} and -x $ENV{JAVA_HOME} and -x "$ENV{JAVA_HOME}/bin/j
 my $myPath  = abs_path($0);			# Abs path of this script
 my $buildDir= File::Basename::dirname($myPath); # Abs path of build dir
 my $javaDir = abs_path("$buildDir/../java");
-my $charvaDir = abs_path("$buildDir/../charva");
+#my $charvaDir = abs_path("$buildDir/../charva");
 
 my $tmpdir="/tmp/mk-lmt-jar_$$";
 
@@ -65,7 +65,7 @@ if (not -e $lmtAppJar) {
 my @jars=getJars("$javaDir/jars");
 push @jars, $lmtAppJar;
 
-push @jars, "$charvaDir/java/dist/lib/charva.jar";
+#push @jars, "$charvaDir/java/dist/lib/charva.jar";
 
 mkdir $tmpdir || die ("Could not create tmpdir $tmpdir: $!\n");
 chdir $tmpdir;
