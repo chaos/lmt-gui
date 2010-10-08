@@ -9,7 +9,7 @@ URL: http://code.google.com/p/lmt
 Packager: Jim Garlick <garlick@llnl.gov>
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: ant, ant-nodeps
+BuildRequires: ant
 BuildRequires: ncurses
 BuildRequires: jre >= 1.4.2, java-devel >= 1.4.2
 Requires: jre >= 1.4.2

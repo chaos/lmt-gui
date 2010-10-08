@@ -2,7 +2,7 @@ LMT_FULL_JAR=@CLIENT_DIR@/lmt-complete.jar
 LMT_APP_JAR =@CLIENT_DIR@/lmt-app.jar
 
 everything:
-	$(MAKE) charva
+	#$(MAKE) charva
 	$(MAKE) all
 	$(MAKE) fulljar
 
@@ -22,8 +22,8 @@ all:
 
 	@cd @JAVA_DIR@/gov/llnl/lustre/utility; make all
 	@cd @JAVA_DIR@/gov/llnl/lustre/database; make all
-	@cd @JAVA_DIR@/gov/llnl/lustre/lstat; make all
-	@cd @JAVA_DIR@/gov/llnl/lustre/ltop; make all
+	#@cd @JAVA_DIR@/gov/llnl/lustre/lstat; make all
+	#@cd @JAVA_DIR@/gov/llnl/lustre/ltop; make all
 	@cd @JAVA_DIR@/gov/llnl/lustre/lwatch/util; make all
 	@cd @JAVA_DIR@/gov/llnl/lustre/lwatch; make all
 
@@ -33,8 +33,8 @@ clean:
 	@echo "*********************"
 	@cd @JAVA_DIR@/gov/llnl/lustre/utility; make clean
 	@cd @JAVA_DIR@/gov/llnl/lustre/database; make clean
-	@cd @JAVA_DIR@/gov/llnl/lustre/lstat; make clean
-	@cd @JAVA_DIR@/gov/llnl/lustre/ltop; make clean
+	#@cd @JAVA_DIR@/gov/llnl/lustre/lstat; make clean
+	#@cd @JAVA_DIR@/gov/llnl/lustre/ltop; make clean
 	@cd @JAVA_DIR@/gov/llnl/lustre/lwatch/util; make clean
 	@cd @JAVA_DIR@/gov/llnl/lustre/lwatch; make clean
 	@cd @CLIENT_DIR@; /bin/rm -f $(LMT_APP_JAR) $(LMT_FULL_JAR)
