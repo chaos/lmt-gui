@@ -1,4 +1,4 @@
-# LMT Configuration File
+# LMT Configuration File - place in $HOME/.lmtrc
 
 filesys.1.name=<insert_fsname_here>
 filesys.1.mountname=<insert_/path/to/mountpoint_here>

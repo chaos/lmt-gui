@@ -10,8 +10,13 @@ Packager: Jim Garlick <garlick@llnl.gov>
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: ant, ant-nodeps
-BuildRequires: jre >= 1.5.0, java-devel >= 1.5.0
-Requires: jre >= 1.5.0
+%if 0%{?ch4}
+BuildRequires: java-1.5.0-ibm-devel, java-1.5.0-ibm
+%else
+BuildRequires: jre >= 1.4.2, java-devel >= 1.4.2
+%endif
+Requires: jre >= 1.4.2
+Obsoletes: lmt-client < 3.0
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
 
@@ -32,8 +37,9 @@ rm -rf   $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{lmtlibdir}
 
-cp scripts/lwatch              $RPM_BUILD_ROOT%{_bindir}
-cp lmt-complete.jar            $RPM_BUILD_ROOT%{lmtlibdir}/lmt-complete.jar
+cp scripts/lwatch   $RPM_BUILD_ROOT%{_bindir}
+cp lmt-complete.jar $RPM_BUILD_ROOT%{lmtlibdir}/lmt-complete.jar
+cp etc/lmtrc        $RPM_BUILD_ROOT%{lmtlibdir}/sample.lmtrc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -43,4 +49,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog NEWS DISCLAIMER COPYING
 %{_bindir}/lwatch
 %dir %{lmtlibdir}
+%{lmtrc}/sample.lmtrc
 %attr(0644,root,root) %{lmtlibdir}/lmt-complete.jar
