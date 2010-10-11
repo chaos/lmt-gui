@@ -17,8 +17,6 @@ Obsoletes: lmt-client < 3.0
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
 
-%define lmtlibdir %{_datadir}/%{name}
-
 %description
 Lustre Monitoring Tools (LMT) GUI Client
 
@@ -32,19 +30,18 @@ make
 %install
 rm -rf   $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{lmtlibdir}
+mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
 cp scripts/lwatch   $RPM_BUILD_ROOT%{_bindir}
-cp lmt-complete.jar $RPM_BUILD_ROOT%{lmtlibdir}/lmt-complete.jar
-cp etc/lmtrc        $RPM_BUILD_ROOT%{lmtlibdir}/sample.lmtrc
+cp scripts/lstat $RPM_BUILD_ROOT%{_bindir}
+cp lmt.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog NEWS DISCLAIMER COPYING
+%doc ChangeLog NEWS DISCLAIMER COPYING sample.lmtrc
 %{_bindir}/lwatch
-%dir %{lmtlibdir}
-%{lmtlibdir}/sample.lmtrc
-%attr(0644,root,root) %{lmtlibdir}/lmt-complete.jar
+%{_bindir}/lstat
+%attr(0644,root,root) %{_javadir}/%{name}-%{version}.jar

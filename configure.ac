@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.57)
-AC_INIT([lmt-client])
+AC_INIT([lmt-gui])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([NEWS])
 AC_CANONICAL_SYSTEM
@@ -14,7 +14,6 @@ AM_CONFIG_HEADER([config/config.h])
 AM_MAINTAINER_MODE
 
 dnl JL Custom stuff
-AC_ARG_WITH(ant,   [  --with-ant   override ant   executable location: --with-ant=/path/to/ant])
 AC_ARG_WITH(java,  [  --with-java  override java  executable location: --with-java=/path/to/java])
 AC_ARG_WITH(javac, [  --with-javac override javac executable location: --with-javac=/path/to/javac])
 
@@ -23,14 +22,12 @@ BUILD_DIR=`(cd build && pwd)`
 ETC_DIR=`(cd etc && pwd)`
 JAVA_DIR=`(cd java && pwd)`
 JAR_DIR=`(cd java/jars && pwd)`
-CHARVA_DIR=`(cd charva && pwd)`
 SCRIPTS_DIR=`(cd scripts && pwd)`
 CLASSPATH=$JAVA_DIR
 
 for i in `(cd java/jars && ls *.jar)`; do
    CLASSPATH=$CLASSPATH:$JAR_DIR/$i
 done
-CLASSPATH=$CLASSPATH:$CHARVA_DIR/java/dist/lib/charva.jar
 
 JFLAGS="-g"
 
@@ -39,7 +36,6 @@ AC_SUBST(BUILD_DIR)
 AC_SUBST(ETC_DIR)
 AC_SUBST(JAVA_DIR)
 AC_SUBST(JAR_DIR)
-AC_SUBST(CHARVA_DIR)
 AC_SUBST(SCRIPTS_DIR)
 AC_SUBST(JFLAGS)
 AC_SUBST(CLASSPATH)
@@ -49,37 +45,6 @@ dnl End of custom stuff
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
-
-# Check programs that can be overridden on execute line.
-if test "$with_ant" != ""
-then
-    AC_MSG_NOTICE([Using ant: $with_ant])
-    AC_CHECK_FILE($with_ant, ANT=$with_ant,
-          [AC_MSG_ERROR([Invalid ant path specified: $with_ant])])
-else
-    AC_PATH_PROG(ANT, ant, ant-not-found, $PATH)
-    if test "$ANT" = "ant-not-found"
-    then
-       AC_ERROR([Could not find ant])
-    fi
-fi
-
-ANT_VERSION=`$ANT -version | cut -d" " -f4`
-ANT_MAJOR_VERSION=`echo "$ANT_VERSION" | sed 's/\([[^.]][[^.]]*\).*/\1/'`
-ANT_MINOR_VERSION=`echo "$ANT_VERSION" | sed 's/[[^.]][[^.]]*.\([[^.]][[^.]]*\).*/\1/'`
-
-AC_MSG_CHECKING([ant version number (found: $ANT_MAJOR_VERSION.$ANT_MINOR_VERSION.x)])
-
-if test $ANT_MAJOR_VERSION -eq 1
-then
-    if test $ANT_MINOR_VERSION -lt 6
-    then
-        AC_MSG_RESULT(not ok)
-        AC_ERROR([Your version of ant is too old! Need 1.5 or higher, but you have $ANT_VERSION])
-    else
-        AC_MSG_RESULT(ok)
-    fi
-fi
 
 if test "$with_java" != ""
 then
@@ -121,12 +86,17 @@ AC_C_CONST
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([atexit strerror])
 
-AC_CONFIG_FILES([Makefile
-                 charva/java/src/charva/awt/Makefile
-                 java/gov/llnl/lustre/database/Makefile
-                 java/gov/llnl/lustre/lwatch/Makefile
-                 java/gov/llnl/lustre/lwatch/util/Makefile
-                 java/gov/llnl/lustre/lstat/Makefile
-                 java/gov/llnl/lustre/ltop/Makefile
-                 java/gov/llnl/lustre/utility/Makefile])
+AC_CONFIG_FILES( \
+  Makefile \
+  scripts/Makefile \
+  java/Makefile \
+  java/gov/llnl/lustre/database/Makefile \
+  java/gov/llnl/lustre/lwatch/Makefile \
+  java/gov/llnl/lustre/lwatch/util/Makefile \
+  java/gov/llnl/lustre/lstat/Makefile \
+  java/gov/llnl/lustre/utility/Makefile \
+)
+AC_CONFIG_FILES([scripts/lwatch], [chmod +x scripts/lwatch])
+AC_CONFIG_FILES([scripts/lstat],  [chmod +x scripts/lstat])
+
 AC_OUTPUT

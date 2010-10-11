@@ -271,7 +271,7 @@ PACKAGE_VERSION=
 PACKAGE_STRING=
 PACKAGE_BUGREPORT=
 
-ac_unique_file="lmt-client"
+ac_unique_file="lmt-gui"
 ac_unique_file="NEWS"
 # Factoring default headers for most tests.
 ac_includes_default="\
@@ -310,7 +310,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS build build_cpu build_vendor build_os host host_cpu host_vendor host_os target target_cpu target_vendor target_os META_NAME META_VERSION META_RELEASE META_ALIAS META_DATE META_AUTHOR META_LT_CURRENT META_LT_REVISION META_LT_AGE X_PREFIX X_EXEC_PREFIX X_BINDIR X_SBINDIR X_LIBEXECDIR X_DATADIR X_SYSCONFDIR X_SHAREDSTATEDIR X_LOCALSTATEDIR X_LIBDIR X_INCLUDEDIR X_OLDINCLUDEDIR X_INFODIR X_MANDIR INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT CLIENT_DIR BUILD_DIR ETC_DIR JAVA_DIR JAR_DIR CHARVA_DIR SCRIPTS_DIR JFLAGS CLASSPATH CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE ANT JAVA JAVAC CPP EGREP LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS build build_cpu build_vendor build_os host host_cpu host_vendor host_os target target_cpu target_vendor target_os META_NAME META_VERSION META_RELEASE META_ALIAS META_DATE META_AUTHOR META_LT_CURRENT META_LT_REVISION META_LT_AGE X_PREFIX X_EXEC_PREFIX X_BINDIR X_SBINDIR X_LIBEXECDIR X_DATADIR X_SYSCONFDIR X_SHAREDSTATEDIR X_LOCALSTATEDIR X_LIBDIR X_INCLUDEDIR X_OLDINCLUDEDIR X_INFODIR X_MANDIR INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar MAINTAINER_MODE_TRUE MAINTAINER_MODE_FALSE MAINT CLIENT_DIR BUILD_DIR ETC_DIR JAVA_DIR JAR_DIR SCRIPTS_DIR JFLAGS CLASSPATH CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE JAVA JAVAC CPP EGREP LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -859,7 +859,6 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-ant   override ant   executable location: --with-ant=/path/to/ant
   --with-java  override java  executable location: --with-java=/path/to/java
   --with-javac override javac executable location: --with-javac=/path/to/javac
 
@@ -2164,12 +2163,6 @@ fi
 
 
 
-# Check whether --with-ant or --without-ant was given.
-if test "${with_ant+set}" = set; then
-  withval="$with_ant"
-
-fi;
-
 # Check whether --with-java or --without-java was given.
 if test "${with_java+set}" = set; then
   withval="$with_java"
@@ -2187,17 +2180,14 @@ BUILD_DIR=`(cd build && pwd)`
 ETC_DIR=`(cd etc && pwd)`
 JAVA_DIR=`(cd java && pwd)`
 JAR_DIR=`(cd java/jars && pwd)`
-CHARVA_DIR=`(cd charva && pwd)`
 SCRIPTS_DIR=`(cd scripts && pwd)`
 CLASSPATH=$JAVA_DIR
 
 for i in `(cd java/jars && ls *.jar)`; do
    CLASSPATH=$CLASSPATH:$JAR_DIR/$i
 done
-CLASSPATH=$CLASSPATH:$CHARVA_DIR/java/dist/lib/charva.jar
 
 JFLAGS="-g"
-
 
 
 
@@ -3343,108 +3333,6 @@ echo "${ECHO_T}no" >&6
   SET_MAKE="MAKE=${MAKE-make}"
 fi
 
-
-# Check programs that can be overridden on execute line.
-if test "$with_ant" != ""
-then
-    { echo "$as_me:$LINENO: Using ant: $with_ant" >&5
-echo "$as_me: Using ant: $with_ant" >&6;}
-    as_ac_File=`echo "ac_cv_file_$with_ant" | $as_tr_sh`
-echo "$as_me:$LINENO: checking for $with_ant" >&5
-echo $ECHO_N "checking for $with_ant... $ECHO_C" >&6
-if eval "test \"\${$as_ac_File+set}\" = set"; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  test "$cross_compiling" = yes &&
-  { { echo "$as_me:$LINENO: error: cannot check for file existence when cross compiling" >&5
-echo "$as_me: error: cannot check for file existence when cross compiling" >&2;}
-   { (exit 1); exit 1; }; }
-if test -r "$with_ant"; then
-  eval "$as_ac_File=yes"
-else
-  eval "$as_ac_File=no"
-fi
-fi
-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_File'}'`" >&5
-echo "${ECHO_T}`eval echo '${'$as_ac_File'}'`" >&6
-if test `eval echo '${'$as_ac_File'}'` = yes; then
-  ANT=$with_ant
-else
-  { { echo "$as_me:$LINENO: error: Invalid ant path specified: $with_ant" >&5
-echo "$as_me: error: Invalid ant path specified: $with_ant" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-else
-    # Extract the first word of "ant", so it can be a program name with args.
-set dummy ant; ac_word=$2
-echo "$as_me:$LINENO: checking for $ac_word" >&5
-echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
-if test "${ac_cv_path_ANT+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  case $ANT in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ANT="$ANT" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_ANT="$as_dir/$ac_word$ac_exec_ext"
-    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-
-  test -z "$ac_cv_path_ANT" && ac_cv_path_ANT="ant-not-found"
-  ;;
-esac
-fi
-ANT=$ac_cv_path_ANT
-
-if test -n "$ANT"; then
-  echo "$as_me:$LINENO: result: $ANT" >&5
-echo "${ECHO_T}$ANT" >&6
-else
-  echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
-fi
-
-    if test "$ANT" = "ant-not-found"
-    then
-       { { echo "$as_me:$LINENO: error: Could not find ant" >&5
-echo "$as_me: error: Could not find ant" >&2;}
-   { (exit 1); exit 1; }; }
-    fi
-fi
-
-ANT_VERSION=`$ANT -version | cut -d" " -f4`
-ANT_MAJOR_VERSION=`echo "$ANT_VERSION" | sed 's/\([^.][^.]*\).*/\1/'`
-ANT_MINOR_VERSION=`echo "$ANT_VERSION" | sed 's/[^.][^.]*.\([^.][^.]*\).*/\1/'`
-
-echo "$as_me:$LINENO: checking ant version number (found: $ANT_MAJOR_VERSION.$ANT_MINOR_VERSION.x)" >&5
-echo $ECHO_N "checking ant version number (found: $ANT_MAJOR_VERSION.$ANT_MINOR_VERSION.x)... $ECHO_C" >&6
-
-if test $ANT_MAJOR_VERSION -eq 1
-then
-    if test $ANT_MINOR_VERSION -lt 6
-    then
-        echo "$as_me:$LINENO: result: not ok" >&5
-echo "${ECHO_T}not ok" >&6
-        { { echo "$as_me:$LINENO: error: Your version of ant is too old! Need 1.5 or higher, but you have $ANT_VERSION" >&5
-echo "$as_me: error: Your version of ant is too old! Need 1.5 or higher, but you have $ANT_VERSION" >&2;}
-   { (exit 1); exit 1; }; }
-    else
-        echo "$as_me:$LINENO: result: ok" >&5
-echo "${ECHO_T}ok" >&6
-    fi
-fi
 
 if test "$with_java" != ""
 then
@@ -4698,7 +4586,12 @@ fi
 done
 
 
-                                                                                ac_config_files="$ac_config_files Makefile charva/java/src/charva/awt/Makefile java/gov/llnl/lustre/database/Makefile java/gov/llnl/lustre/lwatch/Makefile java/gov/llnl/lustre/lwatch/util/Makefile java/gov/llnl/lustre/lstat/Makefile java/gov/llnl/lustre/ltop/Makefile java/gov/llnl/lustre/utility/Makefile"
+                                                                                ac_config_files="$ac_config_files Makefile scripts/Makefile java/Makefile java/gov/llnl/lustre/database/Makefile java/gov/llnl/lustre/lwatch/Makefile java/gov/llnl/lustre/lwatch/util/Makefile java/gov/llnl/lustre/lstat/Makefile java/gov/llnl/lustre/utility/Makefile"
+
+          ac_config_files="$ac_config_files scripts/lwatch"
+
+          ac_config_files="$ac_config_files scripts/lstat"
+
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -5257,13 +5150,15 @@ do
   case "$ac_config_target" in
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-  "charva/java/src/charva/awt/Makefile" ) CONFIG_FILES="$CONFIG_FILES charva/java/src/charva/awt/Makefile" ;;
+  "scripts/Makefile" ) CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
+  "java/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/Makefile" ;;
   "java/gov/llnl/lustre/database/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/database/Makefile" ;;
   "java/gov/llnl/lustre/lwatch/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/lwatch/Makefile" ;;
   "java/gov/llnl/lustre/lwatch/util/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/lwatch/util/Makefile" ;;
   "java/gov/llnl/lustre/lstat/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/lstat/Makefile" ;;
-  "java/gov/llnl/lustre/ltop/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/ltop/Makefile" ;;
   "java/gov/llnl/lustre/utility/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/utility/Makefile" ;;
+  "scripts/lwatch" ) CONFIG_FILES="$CONFIG_FILES scripts/lwatch" ;;
+  "scripts/lstat" ) CONFIG_FILES="$CONFIG_FILES scripts/lstat" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   "config/config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config/config.h" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
@@ -5416,7 +5311,6 @@ s,@BUILD_DIR@,$BUILD_DIR,;t t
 s,@ETC_DIR@,$ETC_DIR,;t t
 s,@JAVA_DIR@,$JAVA_DIR,;t t
 s,@JAR_DIR@,$JAR_DIR,;t t
-s,@CHARVA_DIR@,$CHARVA_DIR,;t t
 s,@SCRIPTS_DIR@,$SCRIPTS_DIR,;t t
 s,@JFLAGS@,$JFLAGS,;t t
 s,@CLASSPATH@,$CLASSPATH,;t t
@@ -5436,7 +5330,6 @@ s,@AMDEPBACKSLASH@,$AMDEPBACKSLASH,;t t
 s,@CCDEPMODE@,$CCDEPMODE,;t t
 s,@am__fastdepCC_TRUE@,$am__fastdepCC_TRUE,;t t
 s,@am__fastdepCC_FALSE@,$am__fastdepCC_FALSE,;t t
-s,@ANT@,$ANT,;t t
 s,@JAVA@,$JAVA,;t t
 s,@JAVAC@,$JAVAC,;t t
 s,@CPP@,$CPP,;t t
@@ -5679,6 +5572,11 @@ s,@INSTALL@,$ac_INSTALL,;t t
     rm -f $tmp/out
   fi
 
+  # Run the commands associated with the file.
+  case $ac_file in
+    scripts/lwatch ) chmod +x scripts/lwatch ;;
+    scripts/lstat ) chmod +x scripts/lstat ;;
+  esac
 done
 _ACEOF
 cat >>$CONFIG_STATUS <<\_ACEOF
