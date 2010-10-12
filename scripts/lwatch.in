@@ -77,5 +77,11 @@ do
    esac
 done
 
-@JAVA@ -Xmx64m  $JAVA_ARGS -cp $CLASSPATH gov.llnl.lustre.lwatch.LWatch $PROG_ARGS
+if [ -n "$JAVA_HOME" ]; then
+   JAVA=$JAVA_HOME/bin/java
+else
+   JAVA=@JAVA@
+fi
+
+$JAVA -Xmx64m  $JAVA_ARGS -cp $CLASSPATH gov.llnl.lustre.lwatch.LWatch $PROG_ARGS
 
