@@ -1,7 +1,4 @@
-CLASSPATH=@CLASSPATH@
+JAVAROOT = $(top_builddir)/java
+CLASSPATH_ENV = CLASSPATH=@CLASSPATH@:$(CLASSPATH)
 
-all: 
-	$(JAVAC) $(JAVACFLAGS) -classpath $(CLASSPATH) *.java
-
-clean:
-	rm -f *.class
+dist_java_JAVA = Database.java OstRawDataIterator.java

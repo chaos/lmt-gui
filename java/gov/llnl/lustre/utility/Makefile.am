@@ -1,11 +1,4 @@
-CLASSPATH=@CLASSPATH@
+JAVAROOT = $(top_builddir)/java
+CLASSPATH_ENV = CLASSPATH=@CLASSPATH@:$(CLASSPATH)
 
-CLASSES= Debug.class  \
-         Grouper.class \
-         TimeIt.class
-
-all: 
-	$(JAVAC) $(JAVACFLAGS) -classpath $(CLASSPATH) *.java
-
-clean:
-	rm -f *.class
+dist_java_JAVA = Debug.java Grouper.java TimeIt.java

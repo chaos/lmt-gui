@@ -37,7 +37,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = java/gov/llnl/lustre/lwatch
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_java_JAVA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps =  \
 	$(top_srcdir)/config/x_ac_expand_install_dirs.m4 \
@@ -49,6 +50,7 @@ CONFIG_HEADER = $(top_builddir)/config/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
+am__installdirs = "$(DESTDIR)$(javadir)"
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMDEP_FALSE = @AMDEP_FALSE@
@@ -169,6 +171,24 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
+JAVAROOT = $(top_builddir)/java
+CLASSPATH_ENV = CLASSPATH=@CLASSPATH@:$(CLASSPATH)
+dist_java_JAVA = \
+	CellListener.java \
+	ColumnComparator.java \
+	FileSystemPanel.java \
+	LwatchAlert.java \
+	LWatch.java \
+	MDSPanel.java \
+	OSSPanel.java \
+	OSTPanel.java \
+	PlotFrame2.java \
+	Prefs.java \
+	PrefsModifier.java \
+	RawLiveParams.java \
+	RTRPanel.java \
+	TextFormatter.java
+
 all: all-am
 
 .SUFFIXES:
@@ -202,6 +222,31 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 uninstall-info-am:
+
+classdist_java.stamp: $(dist_java_JAVA)
+	@if test -n "$?"; then \
+	  echo '$(CLASSPATH_ENV) $(JAVAC) -d $(JAVAROOT) $(AM_JAVACFLAGS) $(JAVACFLAGS) $?' ; \
+	  $(CLASSPATH_ENV) $(JAVAC) -d $(JAVAROOT) \
+	    $(AM_JAVACFLAGS) $(JAVACFLAGS) $?; \
+	else :; fi
+	echo timestamp > classdist_java.stamp
+install-dist_javaJAVA: classdist_java.stamp
+	@$(NORMAL_INSTALL)
+	test -z "$(javadir)" || $(mkdir_p) "$(DESTDIR)$(javadir)"
+	@test -z "$(dist_java_JAVA)" || for p in *.class; do \
+	  echo " $(INSTALL_DATA) '$$p' '$(DESTDIR)$(javadir)/$$p'"; \
+	  $(INSTALL_DATA) "$$p" "$(DESTDIR)$(javadir)/$$p"; \
+	done
+
+uninstall-dist_javaJAVA:
+	@$(NORMAL_UNINSTALL)
+	@test -z "$(dist_java_JAVA)" || for p in *.class; do \
+	  echo " rm -f '$(DESTDIR)$(javadir)/$$p'"; \
+	  rm -f "$(DESTDIR)$(javadir)/$$p"; \
+	done
+
+clean-dist_javaJAVA:
+	-rm -f *.class classdist_java.stamp
 tags: TAGS
 TAGS:
 
@@ -238,8 +283,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile
+all-am: Makefile classdist_java.stamp
 installdirs:
+	for dir in "$(DESTDIR)$(javadir)"; do \
+	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
+	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -264,7 +312,9 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean-am: clean-generic mostlyclean-am
+clean: clean-am
+
+clean-am: clean-dist_javaJAVA clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
@@ -280,7 +330,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-dist_javaJAVA
 
 install-exec-am:
 
@@ -306,23 +356,18 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-info-am
+uninstall-am: uninstall-dist_javaJAVA uninstall-info-am
 
-.PHONY: all all-am check check-am clean clean-generic distclean \
-	distclean-generic distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-exec \
+.PHONY: all all-am check check-am clean clean-dist_javaJAVA \
+	clean-generic distclean distclean-generic distdir dvi dvi-am \
+	html html-am info info-am install install-am install-data \
+	install-data-am install-dist_javaJAVA install-exec \
 	install-exec-am install-info install-info-am install-man \
 	install-strip installcheck installcheck-am installdirs \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am \
-	uninstall-info-am
+	uninstall-dist_javaJAVA uninstall-info-am
 
-
-all: 
-	$(JAVAC) $(JAVACFLAGS) -classpath $(CLASSPATH) *.java
-
-clean:
-	rm -f *.class
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
