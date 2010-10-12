@@ -9,7 +9,11 @@ URL: http://code.google.com/p/lmt
 Packager: Jim Garlick <garlick@llnl.gov>
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+%if 0%{?ch4}
+BuildRequires: jre = 1.4.2, java-devel = 1.4.2
+%else
 BuildRequires: jre >= 1.4.2, java-devel >= 1.4.2
+%endif
 Requires: jre >= 1.4.2
 Obsoletes: lmt-client < 3.0
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
