@@ -17,30 +17,12 @@ dnl JL Custom stuff
 AC_ARG_WITH(java,  [  --with-java  override java  executable location: --with-java=/path/to/java])
 AC_ARG_WITH(javac, [  --with-javac override javac executable location: --with-javac=/path/to/javac])
 
-CLIENT_DIR=`pwd`
-BUILD_DIR=`(cd build && pwd)`
-ETC_DIR=`(cd etc && pwd)`
 JAVA_DIR=`(cd java && pwd)`
-JAR_DIR=`(cd java/jars && pwd)`
-SCRIPTS_DIR=`(cd scripts && pwd)`
 CLASSPATH=$JAVA_DIR
-
-for i in `(cd java/jars && ls *.jar)`; do
-   CLASSPATH=$CLASSPATH:$JAR_DIR/$i
+for i in `(cd $JAVA_DIR/jars && ls *.jar)`; do
+   CLASSPATH=$CLASSPATH:$JAVA_DIR/jars/$i
 done
-
-JFLAGS="-g"
-
-AC_SUBST(CLIENT_DIR)
-AC_SUBST(BUILD_DIR)
-AC_SUBST(ETC_DIR)
-AC_SUBST(JAVA_DIR)
-AC_SUBST(JAR_DIR)
-AC_SUBST(SCRIPTS_DIR)
-AC_SUBST(JFLAGS)
 AC_SUBST(CLASSPATH)
-dnl End of custom stuff
-
 
 # Checks for programs.
 AC_PROG_CC
@@ -58,6 +40,7 @@ else
        AC_ERROR([Could not find java])
     fi
 fi
+AC_SUBST(JAVA)
 
 if test "$with_javac" != ""
 then
