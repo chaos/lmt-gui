@@ -1,0 +1,17 @@
+=========================================================================
+Release Notes for lmt-gui-3.0                                 12 Oct 2010
+=========================================================================
+
+* Repackage for release as companion package of lmt-3.0
+
+* ltop removed as it has been replaced with C/curses ltop in lmt package
+
+* Better automake integration, rewritten jar script
+
+* Build with older gnu java on chaos4 for maximum compatibility.
+
+* Install lmt jar file in standard system location
+
+* Deprecate system-wide lmtrc file, and use only user-supplied ~/.lmtrc.
+  See example in doc directory.  Note that  main lmt package no longer
+  uses lmtrc file - it has a new config file: /etc/lmt/lmt.conf.

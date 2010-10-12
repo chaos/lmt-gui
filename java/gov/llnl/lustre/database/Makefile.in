@@ -165,7 +165,7 @@ target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
 JAVAROOT = $(top_builddir)/java
-CLASSPATH_ENV = CLASSPATH=@CLASSPATH@:$(CLASSPATH)
+CLASSPATH_ENV = CLASSPATH=@CLASSPATH@
 dist_java_JAVA = Database.java OstRawDataIterator.java
 all: all-am
 
