@@ -1,6 +1,6 @@
-Name:  lmt-gui
-Version: 3.0
-Release:  1
+Name:  @META_NAME@
+Version: @META_VERSION@
+Release:  @META_RELEASE@
 
 License: GPL
 Group: Applications/System

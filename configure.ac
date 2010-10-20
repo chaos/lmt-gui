@@ -71,6 +71,7 @@ AC_CHECK_FUNCS([atexit strerror])
 
 AC_CONFIG_FILES( \
   Makefile \
+  lmt-gui.spec \
   scripts/Makefile \
   java/Makefile \
   java/gov/llnl/lustre/database/Makefile \

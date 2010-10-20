@@ -11,3 +11,5 @@ runlwatch:
 	export LMT_CLASSPATH=lmt.jar; scripts/lwatch 
 runlstat:
 	export LMT_CLASSPATH=lmt.jar; scripts/lstat
+
+EXTRA_DIST = META lmt-gui.spec build/mkjar DISCLAIMER sample.lmtrc

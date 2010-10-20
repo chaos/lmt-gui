@@ -4570,7 +4570,7 @@ fi
 done
 
 
-                                                                                ac_config_files="$ac_config_files Makefile scripts/Makefile java/Makefile java/gov/llnl/lustre/database/Makefile java/gov/llnl/lustre/lwatch/Makefile java/gov/llnl/lustre/lwatch/util/Makefile java/gov/llnl/lustre/lstat/Makefile java/gov/llnl/lustre/utility/Makefile"
+                                                                                          ac_config_files="$ac_config_files Makefile lmt-gui.spec scripts/Makefile java/Makefile java/gov/llnl/lustre/database/Makefile java/gov/llnl/lustre/lwatch/Makefile java/gov/llnl/lustre/lwatch/util/Makefile java/gov/llnl/lustre/lstat/Makefile java/gov/llnl/lustre/utility/Makefile"
 
           ac_config_files="$ac_config_files scripts/lwatch"
 
@@ -5134,6 +5134,7 @@ do
   case "$ac_config_target" in
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+  "lmt-gui.spec" ) CONFIG_FILES="$CONFIG_FILES lmt-gui.spec" ;;
   "scripts/Makefile" ) CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
   "java/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/Makefile" ;;
   "java/gov/llnl/lustre/database/Makefile" ) CONFIG_FILES="$CONFIG_FILES java/gov/llnl/lustre/database/Makefile" ;;
