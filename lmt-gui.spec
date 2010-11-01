@@ -1,5 +1,5 @@
 Name:  lmt-gui
-Version: 3.0
+Version: 3.0.0
 Release:  1
 
 License: GPL
